@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans&family=Poppins&family=Roboto&family=Silkscreen&display=swap');
+a{
+    font-family: 'Open Sans', sans-serif;
+}
+body{
+    font-family: 'Poppins', sans-serif;
+}
+
+#main-page{
+    min-height: 100vh;
+    width: 100%;
+    background-color: white;
+}
+
+#main-page.mainNav{
+    background-color: transparent;
+}
+
+.navbar-right{
+    width: 200px;
+    display: flex;
+    justify-content: start;
+}
