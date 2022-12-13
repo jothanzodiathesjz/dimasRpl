@@ -1,0 +1,22 @@
+.movienav{
+    box-sizing: border-box;
+    background-color: #f6f6f6;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.movienav ul, li{
+    height: 70%;
+}
+
+.movienav a{
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.activenav{
+    border-bottom: 2px solid black;
+}
+

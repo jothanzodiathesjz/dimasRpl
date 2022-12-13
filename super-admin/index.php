@@ -1,3 +1,17 @@
+<?php
+session_start();
+$role = isset($_SESSION["role"]) ? $_SESSION["role"] : "";
+if ($role !== "super_admin") {
+    header('location:../index.php');
+}
+
+function getConnection()
+{
+    require_once('../koneksi/db-konek.php');
+    return $koneksi;
+};
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +19,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Star Admin2 </title>
+    <title>Super Admin | Administrator </title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="../plugin/dashboard/template/vendors/feather/feather.css">
     <link rel="stylesheet" href="../plugin/dashboard/template/vendors/mdi/css/materialdesignicons.min.css">
@@ -21,10 +35,11 @@
     <!-- inject:css -->
     <link rel="stylesheet" href="../plugin/dashboard/template/css/vertical-layout-light/style.css">
     <!-- endinject -->
-    <link rel="shortcut icon" href="../plugin/dashboard/template/images/favicon.png" />
+    <!-- <link rel="shortcut icon" href="../plugin/dashboard/template/images/favicon.png" /> -->
 </head>
 
 <body>
+
     <div class="container-scroller">
         <!-- partial:partials/_navbar.html -->
         <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row">
@@ -43,13 +58,13 @@
             <div class="navbar-menu-wrapper d-flex align-items-top">
                 <ul class="navbar-nav">
                     <li class="nav-item font-weight-semibold d-none d-lg-block ms-0">
-                        <h1 class="welcome-text">Wellcome to dashboard, <span class="text-black fw-bold">Dimas</span></h1>
+                        <h1 class="welcome-text">Wellcome to dashboard, <span class="text-black fw-bold"><?php echo $_SESSION['nama'] ?></span></h1>
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item dropdown d-none d-lg-block user-dropdown">
                         <a class="nav-link" id="UserDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                            Dimas Purnomo</a>
+                            <?php echo $_SESSION['nama'] ?></a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
                             <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i> My Profile</a>
                             <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-help-circle-outline text-primary me-2"></i> FAQ</a>
@@ -125,25 +140,46 @@
                             <span class="menu-title">Dashboard</span>
                         </a>
                     </li>
-                    <li class="nav-item <?php echo $activeNav === "data-film" ? "active" : "" ?> ">
+                    <li class="nav-item <?php
+                                        echo $activeNav === "data-film" || $activeNav === "update-film" || $activeNav === "addfilm" ? "active" : "";
+
+                                        ?> ">
                         <a class="nav-link" href="?page=data-film">
                             <i class="menu-icon mdi mdi-movie"></i>
                             <span class="menu-title">Film</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="menu-icon mdi mdi-card-text-outline"></i>
+                        <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                            <i class="menu-icon mdi mdi-floor-plan"></i>
                             <span class="menu-title">Jadwal</span>
+                            <i class="menu-arrow"></i>
                         </a>
+                        <div class="collapse" id="ui-basic">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"> <a class="nav-link" href="?page=tanggal">Tanggal</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="?page=jam">Jam</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="?page=studio">Studio</a></li>
+                            </ul>
+                        </div>
                     </li>
+
                     <li class="nav-item">
                         <a class="nav-link" data-bs-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">
                             <i class="menu-icon mdi mdi-playlist-check"></i>
                             <span class="menu-title">Pesanan</span>
+                            <i class="menu-arrow"></i>
                         </a>
+                        <div class="collapse" id="charts">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"> <a class="nav-link" href="?page=unpaid">Unpaid</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="?page=konfirmasi">Confirm Payment</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="?page=paid">Paid</a></li>
+                                <!-- <li class="nav-item"> <a class="nav-link" href="?page=tiket">Tiket</a></li> -->
+                            </ul>
+                        </div>
                     </li>
-                    <li class="nav-item <?php echo $activeNav === "users" ? "active" : ""; ?>">
+                    <li class="nav-item <?php echo $activeNav === "users" || $activeNav === "update-user" ? "active" : ""; ?>">
                         <a class="nav-link" href="?page=users">
                             <i class="menu-icon mdi mdi-account-circle-outline"></i>
                             <span class="menu-title">Users</span>

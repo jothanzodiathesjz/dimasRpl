@@ -23,6 +23,7 @@ if ($cek > 0) {
         // berfungsi membuat session
         $_SESSION['nama'] =  $data['name'];
         $_SESSION['role'] = $data['role'];
+        $_SESSION['id_user'] = $data['id_user'];
         $_SESSION['status'] = "login";
         //berfungsi mengalihkan ke halaman admin
         header("location: ../super-admin/index.php");
@@ -31,6 +32,7 @@ if ($cek > 0) {
         // berfungsi membuat session
         $_SESSION['nama'] = $data['name'];
         $_SESSION['role'] = "customer";
+        $_SESSION['id_user'] = $data['id_user'];
         $_SESSION['status'] = "login";
         // berfungsi mengalihkan ke halaman moderator
         header("location:../index.php");
@@ -38,6 +40,7 @@ if ($cek > 0) {
         // berfungsi membuat session
         $_SESSION['nama'] = $data['name'];
         $_SESSION['role'] = "admin";
+        $_SESSION['id_user'] = $data['id_user'];
         $_SESSION['status'] = "login";
         // berfungsi mengalihkan ke halaman moderator
         header("location:../admin/index.php");
